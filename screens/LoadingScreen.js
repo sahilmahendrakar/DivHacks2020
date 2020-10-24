@@ -16,7 +16,7 @@ class LoadingScreen extends Component {
                     if(!snapshot.exists()) {
                         this.props.navigation.navigate('FillName', {uid: user.uid});
                     } else {
-                        this.props.navigation.navigate('Home', {uid: user.uid});
+                        this.props.navigation.navigate('Home', {screen: 'HomeScreen', params: {uid: user.uid}});
                     }
                 }, function(error) {
                     console.log(error)

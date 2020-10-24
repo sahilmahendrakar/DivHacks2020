@@ -10,8 +10,6 @@ import firebase from 'firebase'
 import { firebaseConfig } from './config/firebaseconfig';
 import LoadingScreen from './screens/LoadingScreen';
 import HomeScreen from './screens/HomeScreen';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SignUpScreen from './screens/SignUpScreen';
 import FillNameScreen from './screens/FillNameScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -29,7 +27,7 @@ const Drawer = createDrawerNavigator();
 function Home() {
   return(
     <Drawer.Navigator style={{backgroundColor: 'tomato'}}>
-      <Drawer.Screen name="Home" component={HomeScreen}/>
+      <Drawer.Screen name="HomeScreen" component={HomeScreen}/>
       <Drawer.Screen name="AddAPlant" component={AddAPlantScreen}/>
     </Drawer.Navigator>
   );

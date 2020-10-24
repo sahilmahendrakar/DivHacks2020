@@ -14,7 +14,7 @@ export default class FillNameScreen extends React.Component {
       username: name
     });
 
-    this.props.navigation.navigate('Home', {uid: uid});
+    this.props.navigation.navigate('Home', {screen: 'HomeScreen', params: {uid: uid}});
   }
 
   render(){

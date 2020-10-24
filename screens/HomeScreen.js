@@ -1,16 +1,41 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import firebase from 'firebase'
 
 
 export default class HomeScreen extends React.Component {
+    state = {
+        username:"",
+        totalplants:"",
+    }
+
+
     componentDidMount() {
-        console.log(this.props.route.params);
+        this.setUsernameRef();
+        this.setPlantsRef();
+    }
+
+
+    setUsernameRef = () => {
+        var usernameRef = firebase.database().ref('/users/' + this.props.route.params.uid + "/username");
+        usernameRef.on('value', (snapshot) => {
+            this.setState({
+                username: snapshot.val()
+            })
+        });
+    }
+
+    setPlantsRef = () => {
+        var totalPlantsRef = firebase.database().ref('plants/');
+        totalPlantsRef.on('value', function(snapshot) {
+            console.log(snapshot.val())
+        });
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>Welcome Home, Bob</Text>
+                <Text style={styles.title}>Welcome Home, {this.state.username}</Text>
             </View>
         );
     }

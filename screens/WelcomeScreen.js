@@ -19,6 +19,7 @@ function WelcomeScreen({navigation}) {
       <StatusBar style="auto" />
     </View>
     );
+    
 }
 
 const styles = StyleSheet.create({
