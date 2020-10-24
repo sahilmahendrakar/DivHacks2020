@@ -2,6 +2,7 @@ import React from 'react';
 import { Marker } from 'react-native-maps';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
 import { StyleSheet, Text, View, SafeAreaView, Dimensions, Image, TouchableOpacity } from 'react-native';
+import { ceil } from 'react-native-reanimated';
 
 export default class App extends React.Component {
   render() {
@@ -36,7 +37,9 @@ export default class App extends React.Component {
             style = {styles.button} 
             title = "Click me" 
             onPress={() => console.log("button pressed")}
-        />
+        >
+            <Text style={styles.buttonText}>+</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -52,13 +55,20 @@ const styles = StyleSheet.create({
   button: {
     // flexDirection:'row',
     position:'absolute',
-    // bottom: 10,
-    // alignSelf: "center",
+    bottom: 50,
+    right: 40,
+    alignSelf: "center",
     backgroundColor: "darkgreen",
-    // borderWidth: 0.5,
-    // borderRadius: 20,
-    // width: 200,
-    // height: 200,
+    borderWidth: 0.5,
+    borderRadius: 70,
+    width: 70,
+    height: 70,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  buttonText:{
+    fontSize: 50,
+    color: "#fff",
   },
   headerText: {
     color: "#fff",
