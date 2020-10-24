@@ -8,9 +8,9 @@ export default class LoginScreen extends React.Component {
     password:""
   }
 
-  signUp = (email, password) => {
+  login = (email, password) => {
     console.log("Signing up: " + email);
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error){
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error){
       console.log(error)
     })
   }
@@ -37,10 +37,10 @@ export default class LoginScreen extends React.Component {
         <TouchableOpacity>
           <Text style={styles.forgot}>Forgot Password?</Text>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={0.8} style={styles.loginBtn}>
+        <TouchableOpacity activeOpacity={0.8} style={styles.loginBtn} onPress={() => this.login(this.state.email, this.state.password)}>
           <Text style={styles.loginText}>LOGIN</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.signUp(this.state.email, this.state.password)}>
+        <TouchableOpacity  onPress={() => this.props.navigation.navigate('SignUp')}>
           <Text style={styles.loginText}>Sign Up</Text>
         </TouchableOpacity>
 

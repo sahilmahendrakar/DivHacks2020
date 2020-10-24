@@ -1,12 +1,19 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 
-function HomeScreen(props) {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Welcome Home, User</Text>
-        </View>
-    );
+
+export default class HomeScreen extends React.Component {
+    componentDidMount() {
+        console.log(this.props.route.params);
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.title}>Welcome Home, Bob</Text>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
@@ -22,5 +29,3 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     }
 })
-
-export default HomeScreen;
