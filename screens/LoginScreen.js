@@ -1,11 +1,20 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import firebase from 'firebase'
 
 export default class LoginScreen extends React.Component {
   state={
     email:"",
     password:""
   }
+
+  signUp = (email, password) => {
+    console.log("Signing up: " + email);
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error){
+      console.log(error)
+    })
+  }
+
   render(){
     return (
       <View style={styles.container}>
@@ -31,8 +40,8 @@ export default class LoginScreen extends React.Component {
         <TouchableOpacity activeOpacity={0.8} style={styles.loginBtn}>
           <Text style={styles.loginText}>LOGIN</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.loginText}>Signup</Text>
+        <TouchableOpacity onPress={() => this.signUp(this.state.email, this.state.password)}>
+          <Text style={styles.loginText}>Sign Up</Text>
         </TouchableOpacity>
 
   
@@ -65,7 +74,7 @@ const styles = StyleSheet.create({
   },
   inputText:{
     height:50,
-    color:"white"
+    color:"black"
   },
   forgot:{
     color:"white",
