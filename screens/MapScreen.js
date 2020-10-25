@@ -15,7 +15,7 @@ var sampleMarkers = [
   {
     key: 1,
     title: "hello1",
-    coordinates: {
+    coordinate: {
       latitude: 33.8,
       longitude: -84.4,
     },
@@ -24,7 +24,7 @@ var sampleMarkers = [
   {
     key: 2,
     title: "hello2",
-    coordinates: {
+    coordinate: {
       latitude: 33.5,
       longitude: -84.2,
     },
@@ -33,49 +33,85 @@ var sampleMarkers = [
 ]; 
 
 export default class MapScreen extends React.Component {
-    
-  setPlantsRef = () => {
-    var totalPlantsRef = firebase.database().ref('plants/');
-    totalPlantsRef.on('value', function(snapshot) {
-        console.log(snapshot.val())
-    });
-  } 
 
-  state = { 
-    plantProfOpen: false,
-    buttonWord: word1,
-    markers: {},
-    region: {
-      latitude: 33.7872131,
-      longitude: -84.381931,
-      latitudeDelta: .4,
-      longitudeDelta: .4},
-    dummyOpacity: 0
-  };
+  // setPlantsRef = () => {
+  //   var totalPlantsRef = firebase.database().ref('plants/');
+  //   totalPlantsRef.on('value', function(snapshot) {
+  //       console.log(snapshot.val());
+  //       markers = snapshot.val();
+  //   });
+  // }
+  
+  // addPlant = (plantid, name, species, notes, water, fertilize, lat, long) => {
+  //   firebase.database().ref('plants/' + plantid).set({
+  //       plantid:plantid,
+  //       name:name,
+  //       species:species,
+  //       notes:notes,
+  //       water:water,
+  //       fertilize:fertilize,
+  //       lat:lat, 
+  //       long:long
+  //   });
+  //   count++;
+  // }
 
   constructor(props) {
     super(props);
+    // addPlant(count, "planty mcplant", "tomato", "i love to eat tomatoes", "every day", "once a week", "33.8", "-84.4");
+    // addPlant(count, "planty mcplant 2.0", "carrot", "i love to eat carrots", "twice a day", "twice a week", "33.5", "-84.2");
+    this.state = { 
+      plantProfOpen: false,
+      buttonWord: word1,
+      markers: sampleMarkers,
+      region: {
+        latitude: 33.7872131,
+        longitude: -84.381931,
+        latitudeDelta: .4,
+        longitudeDelta: .4},
+      dummyOpacity: 0
+    };
+    this.itemsRef = firebase.database().ref('plants/');
+
+    this.itemsRef.push({
+      title: 'hello 1',
+      name: 'planty mcplant 1.0',
+      species: 'sunflower',
+      notes: 'hello i like to eat sunflowers',
+      water: 'half a day',
+      fertilize: 'half a week ',
+      coordinate: {
+        latitude: -34,
+        longitude: -84
+      }
+    })
+    
   }
 
-  setPlantsRef = () => {
-    var totalPlantsRef = firebase.database().ref('plants/');
-    totalPlantsRef.on('value', function(snapshot) {
-        console.log(snapshot.val())
-    });
-  }
+  listenForItems(itemsRef) {
+    itemsRef.on('value', (snap) => {
 
-  addPlant = (plantid, name, species, notes, water, fertilize, lat, long) => {
-    firebase.database().ref('plants/' + plantid).set({
-        plantid:plantid,
-        name:name,
-        species:species,
-        notes:notes,
-        water:water,
-        fertilize:fertilize,
-        lat:lat, 
-        long:long
+      // get children as an array
+      var items = [];
+      snap.forEach((child) => {
+        console.log(child.val().name);
+        items.concat({
+          title: child.val().title,
+          key: child.key,
+          name: child.val().name,
+          species: child.val().species,
+          notes: child.val().notes,
+          water:child.val().water,
+          fertilize:child.val().fertilize,
+          coordinate:child.val().coordinate
+        });
+      });
+
+      this.setState({
+        markers: items
+      });
+
     });
-    count++;
   }
 
   onRegionChange = region => {
@@ -86,7 +122,6 @@ export default class MapScreen extends React.Component {
 
   onPress = () => {
       if(! this.state.plantProfOpen) {
-
         this.setState({ 
           plantProfOpen: true,
           buttonWord: word2,
@@ -95,17 +130,32 @@ export default class MapScreen extends React.Component {
         });
 
      } else {
-      this.addPlant(count, "planty mcplant 3.0", "cucumber", "i love to eat cucumbers", "three times a day", "thrice a week", this.state.region.latitude, this.state.region.longitude)
+      // this.addPlant(count, "planty mcplant 3.0", "cucumber", "i love to eat cucumbers", "three times a day", "thrice a week", this.state.region.latitude, this.state.region.longitude)
 
-      this.state.markers.push({
-        key: 3,
-        title: "hello3",
-        coordinates: {
+      this.itemsRef.push({
+        title: 'hello',
+        name: 'planty mcplant 3.0',
+        species: 'cucumber',
+        notes: 'hello i like to eat cucumbers',
+        water: 'thrice a day',
+        fertilize: 'thrice a week ',
+        coordinate: {
           latitude: this.state.region.latitude,
-          longitude: this.state.region.longitude ,
-        },
-        description: "desc3"
-      });
+          longitude: this.state.region.longitude
+        }
+      })
+
+      console.log('3.0')
+
+      // this.state.markers.push({
+      //   key: 3,
+      //   title: "hello3",
+      //   coordinates: {
+      //     latitude: this.state.region.latitude,
+      //     longitude: this.state.region.longitude ,
+      //   },
+      //   description: "desc3"
+      // });
 
       // finish = (name, location) => {
       //   firebase.database().ref('plants/' + name).set({
@@ -117,7 +167,6 @@ export default class MapScreen extends React.Component {
       this.setState({ 
           plantProfOpen: false,
           buttonWord: word1,
-          
           dummyOpacity: 0,
           
       });
@@ -125,13 +174,18 @@ export default class MapScreen extends React.Component {
     
   };
 
-  render() {
-    const {buttonWord} = this.state;
-    const {region} = this.state;
-    const {dummyOpacity} = this.state;
+  componentDidMount() {
+    // this.setState({
+    //   markers: this.state.markers
+    // })
+    this.listenForItems(this.itemsRef);
+  }
 
-  this.addPlant(count, "planty mcplant", "tomato", "i love to eat tomatoes", "every day", "once a week", "33.8", "-84.4")
-  this.addPlant(count, "planty mcplant 2.0", "carrot", "i love to eat carrots", "twice a day", "twice a week", "33.5", "-84.2")
+  render() {
+    var {buttonWord} = this.state;
+    var {region} = this.state;
+    var {dummyOpacity} = this.state;
+    var {markers} = this.state;
 
     return (
       <View style={styles.container}>
@@ -141,16 +195,16 @@ export default class MapScreen extends React.Component {
             onRegionChangeComplete={this.onRegionChange}
             >
 
-            {/* {this.state.totalPlantsRef.map((marker) => (
+            {this.state.markers.map((marker) => (
               <MapView.Marker
-                index={marker.plantid}
-                coordinate={marker.lat, marker.long}
+                key={marker.key}
+                coordinate={marker.coordinate}
                 title={marker.name}
                 description={marker.notes}
                 >
                 <Image source={require(plantImage)} style={styles.icon} />
               </MapView.Marker>
-            ))} */}
+            ))}
 
         </MapView>
 
