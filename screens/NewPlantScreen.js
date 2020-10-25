@@ -31,19 +31,19 @@ export default class NewPlantScreen extends React.Component {
 
     render(){
         return(
-            <View style={styles.container}>   
-                    <Text style= {styles.title}>Add a new Plant!</Text>
+            <SafeAreaView style={styles.container}>   
+                    <Text style= {styles.title}>add a new plant</Text>
                     <View style={styles.inputView} >
                         <TextInput  
                             style={styles.inputText}
-                            placeholder="Name" 
+                            placeholder="name" 
                             placeholderTextColor="#003f5c"
                             onChangeText={text => this.setState({name:text})}/>
                     </View>
                     <View style={styles.inputView} >
                         <TextInput  
                             style={styles.inputText}
-                            placeholder="Species" 
+                            placeholder="species" 
                             placeholderTextColor="#003f5c"
                             onChangeText={text => this.setState({species:text})}/>
                     </View>
@@ -51,30 +51,30 @@ export default class NewPlantScreen extends React.Component {
                         <TextInput  
                             multiline
                             style={styles.inputText}
-                            placeholder="Notes" 
+                            placeholder="notes" 
                             placeholderTextColor="#003f5c"
                             onChangeText={text => this.setState({notes:text})}/>
                     </View>
                     <View style={styles.inputView} >
                         <TextInput  
                             style={styles.inputText}
-                            placeholder="Watering Interval in days" 
+                            placeholder="watering interval in days" 
                             placeholderTextColor="#003f5c"
                             onChangeText={text => this.setState({water:text})}/>
                     </View>
                     <View style={styles.inputView} >
                         <TextInput  
                             style={styles.inputText}
-                            placeholder="Fertilizing Interval in days" 
+                            placeholder="fertilizing interval in days" 
                             placeholderTextColor="#003f5c"
                             onChangeText={text => this.setState({fertilizer:text})}/>
                     </View>
                     <TouchableOpacity activeOpacity={0.8} style={styles.addButton} onPress = {() => 
                         this.finish(this.state.plantid, this.state.name, this.state.species, this.state.notes, 
                         this.state.water, this.state.fertilize, this.props.route.params.params.lat, this.props.route.params.params.long)}>
-                        <Text style={styles.normalText}>Add!</Text>
+                        <Text style={styles.normalText}>add</Text>
                     </TouchableOpacity>
-            </View>
+            </SafeAreaView>
         );
     }
 }
@@ -90,12 +90,13 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
     },
     title:{
-        fontWeight:"bold",
+        // fontWeight:"bold",
         fontSize:30,
         color:"#fff",
-        marginBottom:30,
-        flexGrow: 1,
+        marginBottom:10,
+        // flexGrow: 1,
         fontFamily: styling.mainFont,
+        padding: 10,
     },
     normalText:{  
         fontWeight:"normal",
@@ -106,23 +107,27 @@ const styles = StyleSheet.create({
     inputView:{
       width:"80%",
       backgroundColor:"#fff",
-      borderRadius:25,
-      height:"7%",
+    //   borderRadius:25,
+    //   height:"7%",
       marginBottom:20,
       justifyContent:"center",
       padding:10,
-      flexGrow: 1,
+    //   flexGrow: 1,
       fontFamily: styling.mainFont,
+      borderWidth: 0.5,
+        borderRadius: 70,
+        padding: 15,
+        height: 60,
     },
     longInputView:{
         width:"80%",
         backgroundColor:"#fff",
         borderRadius:25,
-        height:"20%",
+        height:150,
         marginBottom:20,
         justifyContent: "flex-start",
         padding:10,
-        flexGrow: 1,
+        // flexGrow: 1,
         fontFamily: styling.mainFont,
       },
     inputText:{
@@ -131,17 +136,20 @@ const styles = StyleSheet.create({
       fontFamily: styling.mainFont,
     },
     addButton:{
-      width:"80%",
       backgroundColor:styling.secondaryColor,
-      borderRadius:25,
-      height:50,
       alignItems:"center",
       justifyContent:"center",
       marginTop:10,
       marginBottom:10,
-      flexGrow: 1,
       fontFamily: styling.mainFont,
+      width:"80%",
+      marginBottom:20,
+      padding:20,
+      fontFamily: styling.mainFont,
+      borderWidth: 0.5,
+      borderRadius: 70,
+      padding: 15,
+      height: 60,
     }
       
-    },
 })

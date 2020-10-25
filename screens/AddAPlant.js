@@ -21,6 +21,7 @@ export default class AddAPlantScreen extends React.Component {
 
   render(){
     return (
+      <SafeAreaView>
       <View style={styles.container}>
         <Text style={styles.logo}>add a plant</Text>
         <View style={styles.inputView} >
@@ -41,6 +42,7 @@ export default class AddAPlantScreen extends React.Component {
           <Text style={styles.loginText}>plant</Text>
         </TouchableOpacity>
       </View>
+      </SafeAreaView>
     );
   }
 }
@@ -64,13 +66,13 @@ const styles = StyleSheet.create({
     width:"80%",
     backgroundColor:"#fff",
     borderRadius:25,
-    height:50,
-    marginBottom:20,
+    height:60,
+    // marginBottom:20,
     justifyContent:"center",
-    padding:20,
+    padding:15,
   },
   inputText:{
-    height:50,
+    height:30,
     color:"black",
     fontFamily: styling.mainFont,
   },
