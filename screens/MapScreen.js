@@ -9,7 +9,7 @@ const word1 = "+";
 const word2 = "check";
 const plantImage = "../assets/PlantIcon.png";
 const plantSize = 50;
-const count = 0;
+var count = 0;
 
 var sampleMarkers = [
   {
@@ -41,19 +41,20 @@ export default class MapScreen extends React.Component {
     });
   } 
 
+  state = { 
+    plantProfOpen: false,
+    buttonWord: word1,
+    markers: {},
+    region: {
+      latitude: 33.7872131,
+      longitude: -84.381931,
+      latitudeDelta: .4,
+      longitudeDelta: .4},
+    dummyOpacity: 0
+  };
+
   constructor(props) {
     super(props);
-    this.state = { 
-      plantProfOpen: false,
-      buttonWord: word1,
-      markers: sampleMarkers,
-      region: {
-        latitude: 33.7872131,
-        longitude: -84.381931,
-        latitudeDelta: .4,
-        longitudeDelta: .4},
-      dummyOpacity: 0
-    };
   }
 
   setPlantsRef = () => {
@@ -139,18 +140,8 @@ export default class MapScreen extends React.Component {
             initialRegion={region}
             onRegionChangeComplete={this.onRegionChange}
             >
-            
-            {/* {this.state.markers.map((marker, index) => (
-              <MapView.Marker
-                index={marker.key}
-                coordinate={marker.coordinates}
-                title={marker.title}
-                description={marker.description}>
-                <Image source={require(plantImage)} style={styles.icon} />
-              </MapView.Marker>
-            ))} */}
 
-            {this.state.totalPlantsRef.map((marker) => (
+            {/* {this.state.totalPlantsRef.map((marker) => (
               <MapView.Marker
                 index={marker.plantid}
                 coordinate={marker.lat, marker.long}
@@ -159,7 +150,7 @@ export default class MapScreen extends React.Component {
                 >
                 <Image source={require(plantImage)} style={styles.icon} />
               </MapView.Marker>
-            ))}
+            ))} */}
 
         </MapView>
 

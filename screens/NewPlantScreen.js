@@ -14,7 +14,7 @@ export default class NewPlantScreen extends React.Component {
     }
 
     finish = (plantid, name, species, notes, water, fertilize, lat, long) => {
-        firebase.database().ref('plants/' + plantid).set({
+        firebase.database().ref('plants/' + plantid).push({
             plantid:plantid,
             name:name,
             species:species,
@@ -25,7 +25,7 @@ export default class NewPlantScreen extends React.Component {
             long:long
         });
     
-        this.props.navigation.navigate('Home');
+        this.props.navigation.goBack();
     }
 
     render(){
