@@ -72,19 +72,6 @@ export default class MapScreen extends React.Component {
       dummyOpacity: 0
     };
     this.itemsRef = firebase.database().ref('plants/');
-
-    this.itemsRef.push({
-      title: 'hello 1',
-      name: 'planty mcplant 1.0',
-      species: 'sunflower',
-      description: 'hello i like to eat sunflowers',
-      water: 'half a day',
-      fertilize: 'half a week ',
-      coordinate: {
-        latitude: -34,
-        longitude: -84
-      }
-    })
     
   }
 
@@ -131,38 +118,7 @@ export default class MapScreen extends React.Component {
         });
 
      } else {
-      // this.addPlant(count, "planty mcplant 3.0", "cucumber", "i love to eat cucumbers", "three times a day", "thrice a week", this.state.region.latitude, this.state.region.longitude)
-
-      this.itemsRef.push({
-        title: 'hello',
-        name: 'planty mcplant 3.0',
-        species: 'cucumber',
-        description: 'hello i like to eat cucumbers',
-        water: 'thrice a day',
-        fertilize: 'thrice a week ',
-        coordinate: {
-          latitude: this.state.region.latitude,
-          longitude: this.state.region.longitude
-        }
-      })
-      // console.log(this.state.markers[0])
-
-      // this.state.markers.push({
-      //   key: 3,
-      //   title: "hello3",
-      //   coordinates: {
-      //     latitude: this.state.region.latitude,
-      //     longitude: this.state.region.longitude ,
-      //   },
-      //   description: "desc3"
-      // });
-
-      // finish = (name, location) => {
-      //   firebase.database().ref('plants/' + name).set({
-      //       name: name,
-      //       location: location,
-      //   });
-      // }
+      this.props.navigation.navigate("NewPlant", {screen: 'Settings', params: {lat:this.state.region.latitude, long:this.state.region.longitude}});
 
       this.setState({ 
           plantProfOpen: false,

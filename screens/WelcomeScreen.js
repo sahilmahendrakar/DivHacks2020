@@ -9,11 +9,11 @@ function WelcomeScreen({navigation}) {
       <Image style={styles.image} source={require('../assets/PlantIcon.png')} />
       <Text style={styles.text}>PlantPals</Text>
 
-      <TouchableOpacity activeOpacity={0.8} style={{top:50}} onPress = {() => navigation.navigate('Loading')}>
+      <TouchableOpacity activeOpacity={0.8} style={{top:50}} onPress = {() => navigation.navigate('Login')}>
         <View style = {{backgroundColor: '#424141', alignItems: 'center', 
                     justifyContent: 'center', borderRadius: 30, paddingRight:30, paddingLeft:30, paddingVertical:10}}
            > 
-        <Text style = {{color: 'white', fontWeight:'bold'}}>Login</Text> 
+        <Text style = {{color: 'white', fontWeight:'bold'}}>Logsin</Text> 
     </View>
 </TouchableOpacity> 
       <StatusBar style="auto" />

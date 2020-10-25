@@ -15,7 +15,7 @@ import FillNameScreen from './screens/FillNameScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import AddAPlantScreen from './screens/AddAPlant';
 import MapScreen from './screens/MapScreen';
-
+import NewPlantScreen from './screens/NewPlantScreen';
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -38,13 +38,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen name="Map" component={MapScreen} options={ {headerShown: false }}/>
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={ {headerShown: false }}/>
-        <Stack.Screen name="Loading" component={LoadingScreen} options={ {headerShown: false }}/>
         <Stack.Screen name="Login" component={LoginScreen} options={ {headerShown: false }}/>
-        <Stack.Screen name="SignUp" component={SignUpScreen} options={ {headerShown: false }}/>
-        <Stack.Screen name="FillName" component={FillNameScreen} options={ {headerShown: false }}/>
-        <Stack.Screen name="Home" component={Home} options={ {headerShown: false }}/>
+        <Stack.Screen name="Maps" component={MapScreen} options={ {headerShown: false }}/>
+        <Stack.Screen name="NewPlant" component={NewPlantScreen} options={ {headerShown: false }}/>
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -5,11 +5,11 @@ import firebase from 'firebase'
 class LoadingScreen extends Component {
     state = {  }
 
-    componentDidMount() {
+    /**componentDidMount() {
         this.checkIfLoggedIn();
     }
 
-    checkIfLoggedIn = () => {
+    /**checkIfLoggedIn = () => {
         firebase.auth().onAuthStateChanged((user) => {
             if(user){
                 firebase.database().ref('/users/' + user.uid).once('value').then((snapshot) => {
@@ -27,7 +27,7 @@ class LoadingScreen extends Component {
             }
         })
     }
-
+    **/
     render() {
         return (
             <View style={styles.container}>

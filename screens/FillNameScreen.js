@@ -22,7 +22,7 @@ export default class FillNameScreen extends React.Component {
       <View style={styles.container}>
         <Text style={styles.logo}>PlantPal</Text>
         <View style={styles.inputView} >
-          <TextInput  
+          <TextInput 
             style={styles.inputText}
             placeholder="Name..." 
             placeholderTextColor="#003f5c"

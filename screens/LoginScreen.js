@@ -9,6 +9,7 @@ export default class LoginScreen extends React.Component {
   }
 
   login = (email, password) => {
+    this.props.navigation.navigate("Maps");
     console.log("Signing up: " + email);
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error){
       console.log(error)
@@ -27,10 +28,10 @@ export default class LoginScreen extends React.Component {
             onChangeText={text => this.setState({email:text})}/>
         </View>
         <View style={styles.inputView} >
-          <TextInput  
+          <TextInput 
             secureTextEntry
             style={styles.inputText}
-            placeholder="Password..." 
+            placeholder="Password..."
             placeholderTextColor="#003f5c"
             onChangeText={text => this.setState({password:text})}/>
         </View>
