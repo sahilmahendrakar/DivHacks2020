@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import firebase from 'firebase'
+import styling from '../config/styling';
 
 export default class SignUpScreen extends React.Component {
   state={
@@ -10,7 +11,7 @@ export default class SignUpScreen extends React.Component {
   }
 
   signUp = (email, password, name) => {
-    console.log("Signing up: " + email);
+    console.log("signing up: " + email);
     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error){
       console.log(error)
     })
@@ -19,18 +20,18 @@ export default class SignUpScreen extends React.Component {
   render(){
     return (
       <View style={styles.container}>
-        <Text style={styles.logo}>PlantPal</Text>
+        <Text style={styles.logo}>{styling.applicationName}</Text>
         <View style={styles.inputView} >
           <TextInput  
             style={styles.inputText}
-            placeholder="Name..." 
+            placeholder="name..." 
             placeholderTextColor="#003f5c"
             onChangeText={text => this.setState({name:text})}/>
         </View>
         <View style={styles.inputView} >
           <TextInput  
             style={styles.inputText}
-            placeholder="Email..." 
+            placeholder="email..." 
             placeholderTextColor="#003f5c"
             onChangeText={text => this.setState({email:text})}/>
         </View>
@@ -39,7 +40,7 @@ export default class SignUpScreen extends React.Component {
           <TextInput  
             secureTextEntry
             style={styles.inputText}
-            placeholder="Password..." 
+            placeholder="password..." 
             placeholderTextColor="#003f5c"
             onChangeText={text => this.setState({password:text})}/>
         </View>
@@ -47,7 +48,7 @@ export default class SignUpScreen extends React.Component {
           <Text style={styles.forgot}>Forgot Password?</Text>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={0.8} style={styles.loginBtn} onPress={() => this.signUp(this.state.email, this.state.password, this.state.name)}>
-          <Text style={styles.loginText}>CREATE ACCOUNT</Text>
+          <Text style={styles.loginText}>create account</Text>
         </TouchableOpacity>
 
   
@@ -59,15 +60,17 @@ export default class SignUpScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#73db8d',
+    backgroundColor: styling.primaryColor,
     alignItems: 'center',
     justifyContent: 'center',
+    fontFamily: styling.mainFont,
   },
   logo:{
-    fontWeight:"bold",
+    // fontWeight:"bold",
     fontSize:50,
     color:"#fff",
-    marginBottom:40
+    marginBottom:40,
+    fontFamily: styling.mainFont,
   },
   inputView:{
     width:"80%",
@@ -76,28 +79,33 @@ const styles = StyleSheet.create({
     height:50,
     marginBottom:20,
     justifyContent:"center",
-    padding:20
+    padding:20,
+    fontFamily: styling.mainFont,
   },
   inputText:{
     height:50,
-    color:"black"
+    color:"black",
+    fontFamily: styling.mainFont,
   },
   forgot:{
     color:"white",
-    fontSize:11
+    fontSize:11,
+    fontFamily: styling.mainFont,
   },
   loginBtn:{
     width:"80%",
-    backgroundColor:"#fb5b5a",
+    backgroundColor:styling.secondaryColor,
     borderRadius:25,
     height:50,
     alignItems:"center",
     justifyContent:"center",
     marginTop:40,
     marginBottom:10,
+    fontFamily: styling.mainFont,
   },
   loginText:{
     color:"white",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    fontFamily: styling.mainFont,
   }
 });

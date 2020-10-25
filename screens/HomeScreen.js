@@ -2,6 +2,8 @@ import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import firebase from 'firebase'
 
+import styling from '../config/styling';
+
 
 export default class HomeScreen extends React.Component {
     state = {
@@ -16,8 +18,11 @@ export default class HomeScreen extends React.Component {
     }
 
 
+    
+
     setUsernameRef = () => {
-        var usernameRef = firebase.database().ref('/users/' + this.props.route.params.uid + "/username");
+        console.log('setUserNameRef');
+        var usernameRef = firebase.database().ref('/users/' + this.props.route.params.uid1 + "/username");
         usernameRef.on('value', (snapshot) => {
             this.setState({
                 username: snapshot.val()
@@ -35,7 +40,7 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.title}>Welcome Home, {this.state.username}</Text>
+                <Text style={styles.title}>welcome home, {this.state.username}</Text>
             </View>
         );
     }
@@ -44,13 +49,15 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#73db8d',
+        backgroundColor: styling.primaryColor,
         alignItems: 'center',
         justifyContent: 'center',
+        
       },
     title: {
         color: 'white',
         fontSize: 50,
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: styling.mainFont,
     }
 })

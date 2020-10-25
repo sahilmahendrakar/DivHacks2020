@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import firebase from 'firebase'
 
+import styling from '../config/styling';
+
 export default class FillNameScreen extends React.Component {
   state={
     name:""
@@ -13,23 +15,23 @@ export default class FillNameScreen extends React.Component {
     this.database.ref('/users/' + uid).set({
       username: name
     });
-
-    this.props.navigation.navigate('Home', {screen: 'HomeScreen', params: {uid: uid}});
+    console.log("nihao" + this.props.route.params);
+    this.props.navigation.navigate('Home', {screen: 'HomeScreen', params: {uid: user.uid}});
   }
 
   render(){
     return (
       <View style={styles.container}>
-        <Text style={styles.logo}>PlantPal</Text>
+        <Text style={styles.logo}>{styling.applicationName}</Text>
         <View style={styles.inputView} >
-          <TextInput  
+          <TextInput 
             style={styles.inputText}
-            placeholder="Name..." 
+            placeholder="name..." 
             placeholderTextColor="#003f5c"
             onChangeText={text => this.setState({name:text})}/>
         </View>
         <TouchableOpacity activeOpacity={0.8} style={styles.loginBtn} onPress={() => this.setName(this.state.name, this.props.route.params.uid)}>
-          <Text style={styles.loginText}>SET NAME</Text>
+          <Text style={styles.loginText}>set name</Text>
         </TouchableOpacity>
 
   
@@ -41,15 +43,17 @@ export default class FillNameScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#73db8d',
+    backgroundColor: styling.primaryColor,
     alignItems: 'center',
     justifyContent: 'center',
+    fontFamily: styling.mainFont,
   },
   logo:{
-    fontWeight:"bold",
+    // fontWeight:"bold",
     fontSize:50,
     color:"#fff",
-    marginBottom:40
+    marginBottom:40,
+    fontFamily: styling.mainFont,
   },
   inputView:{
     width:"80%",
@@ -58,28 +62,33 @@ const styles = StyleSheet.create({
     height:50,
     marginBottom:20,
     justifyContent:"center",
-    padding:20
+    padding:20,
+    fontFamily: styling.mainFont,
   },
   inputText:{
     height:50,
-    color:"black"
+    color:"black",
+    fontFamily: styling.mainFont,
   },
   forgot:{
     color:"white",
-    fontSize:11
+    fontSize:11,
+    fontFamily: styling.mainFont,
   },
   loginBtn:{
     width:"80%",
-    backgroundColor:"#fb5b5a",
+    backgroundColor:styling.secondaryColor,
     borderRadius:25,
     height:50,
     alignItems:"center",
     justifyContent:"center",
     marginTop:40,
     marginBottom:10,
+    fontFamily: styling.mainFont,
   },
   loginText:{
     color:"white",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    fontFamily: styling.mainFont,
   }
 });

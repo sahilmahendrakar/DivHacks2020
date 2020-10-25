@@ -2,15 +2,18 @@ import React, {Component} from 'react'
 import { ActivityIndicator, View, StyleSheet } from "react-native";
 import firebase from 'firebase'
 
+import styling from '../config/styling';
+
 class LoadingScreen extends Component {
     state = {  }
 
-    componentDidMount() {
+    /**componentDidMount() {
         this.checkIfLoggedIn();
     }
 
-    checkIfLoggedIn = () => {
+    /**checkIfLoggedIn = () => {
         firebase.auth().onAuthStateChanged((user) => {
+
             if(user){
                 firebase.database().ref('/users/' + user.uid).once('value').then((snapshot) => {
                     if(!snapshot.exists()) {
@@ -27,7 +30,7 @@ class LoadingScreen extends Component {
             }
         })
     }
-
+    **/
     render() {
         return (
             <View style={styles.container}>
@@ -39,10 +42,11 @@ class LoadingScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#73db8d',
+        backgroundColor: styling.primaryColor,
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        fontFamily: styling.mainFont,
     }
 })
 
