@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity,ScrollView,SafeAreaView } from 'react-native';
 import firebase from 'firebase'
+import styling from '../config/styling';
 
 export default class NewPlantScreen extends React.Component {
     state={
@@ -80,9 +81,10 @@ export default class NewPlantScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#73db8d',
+        backgroundColor: styling.primaryColor,
         alignItems: 'center',
         justifyContent: 'center',
+        fontFamily: styling.mainFont,
     },
     scroll:{
         marginHorizontal: 10,
@@ -92,12 +94,14 @@ const styles = StyleSheet.create({
         fontSize:30,
         color:"#fff",
         marginBottom:30,
-        flexGrow: 1
+        flexGrow: 1,
+        fontFamily: styling.mainFont,
     },
     normalText:{  
         fontWeight:"normal",
         fontSize:20,
         color:"#fff",
+        fontFamily: styling.mainFont,
     },
     inputView:{
       width:"80%",
@@ -107,7 +111,8 @@ const styles = StyleSheet.create({
       marginBottom:20,
       justifyContent:"center",
       padding:10,
-      flexGrow: 1
+      flexGrow: 1,
+      fontFamily: styling.mainFont,
     },
     longInputView:{
         width:"80%",
@@ -117,21 +122,26 @@ const styles = StyleSheet.create({
         marginBottom:20,
         justifyContent: "flex-start",
         padding:10,
-        flexGrow: 1
+        flexGrow: 1,
+        fontFamily: styling.mainFont,
       },
     inputText:{
       height:30,
-      color:"black"
+      color:"black",
+      fontFamily: styling.mainFont,
     },
     addButton:{
       width:"80%",
-      backgroundColor:"#fb5b5a",
+      backgroundColor:styling.secondaryColor,
       borderRadius:25,
       height:50,
       alignItems:"center",
       justifyContent:"center",
       marginTop:10,
       marginBottom:10,
-      flexGrow: 1
+      flexGrow: 1,
+      fontFamily: styling.mainFont,
     }
+      
+    },
 })
