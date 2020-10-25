@@ -9,7 +9,7 @@ function WelcomeScreen({navigation}) {
       <Image style={styles.image} source={require('../assets/PlantIcon.png')} />
       <Text style={styles.text}>PlantPals</Text>
 
-      <TouchableOpacity activeOpacity={0.8} style={{top:50}} onPress = {() => navigation.navigate('Login')}>
+      <TouchableOpacity activeOpacity={0.8} style={{top:50}} onPress = {() => navigation.navigate('Loading')}>
         <View style = {{backgroundColor: '#424141', alignItems: 'center', 
                     justifyContent: 'center', borderRadius: 30, paddingRight:30, paddingLeft:30, paddingVertical:10}}
            > 
@@ -19,6 +19,7 @@ function WelcomeScreen({navigation}) {
       <StatusBar style="auto" />
     </View>
     );
+    
 }
 
 const styles = StyleSheet.create({
