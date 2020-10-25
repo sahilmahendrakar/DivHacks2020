@@ -2,12 +2,14 @@ import React from 'react';
 import { Marker } from 'react-native-maps';
 import MapView from 'react-native-maps';
 import { StyleSheet, Text, View, SafeAreaView, Dimensions, Image, TouchableOpacity } from 'react-native';
-import { ceil } from 'react-native-reanimated';
+import { add, ceil } from 'react-native-reanimated';
 import firebase from 'firebase'
 
 const word1 = "+";
 const word2 = "check";
 const plantImage = "../assets/PlantIcon.png";
+const plantSize = 50;
+const count = 0;
 
 var sampleMarkers = [
   {
@@ -30,8 +32,15 @@ var sampleMarkers = [
   }
 ]; 
 
-export default class App extends React.Component {
+export default class MapScreen extends React.Component {
     
+  setPlantsRef = () => {
+    var totalPlantsRef = firebase.database().ref('plants/');
+    totalPlantsRef.on('value', function(snapshot) {
+        console.log(snapshot.val())
+    });
+  } 
+
   constructor(props) {
     super(props);
     this.state = { 
@@ -54,6 +63,20 @@ export default class App extends React.Component {
     });
   }
 
+  addPlant = (plantid, name, species, notes, water, fertilize, lat, long) => {
+    firebase.database().ref('plants/' + plantid).set({
+        plantid:plantid,
+        name:name,
+        species:species,
+        notes:notes,
+        water:water,
+        fertilize:fertilize,
+        lat:lat, 
+        long:long
+    });
+    count++;
+  }
+
   onRegionChange = region => {
     this.setState({
       region
@@ -62,77 +85,62 @@ export default class App extends React.Component {
 
   onPress = () => {
       if(! this.state.plantProfOpen) {
-        // <View style={styles.markerFixed}>
-        //   <Image source={require('../assets/PlantIcon.png')} style={styles.icon} />
-        // </View>
-
-        // this.state.markers.push({
-        //   key: 3,
-        //   title: "hello3",
-        //   coordinates: {
-        //     latitude: 33.55,
-        //     longitude: -84.25,
-        //   },
-        //   description: "desc3"
-        // });
 
         this.setState({ 
           plantProfOpen: true,
           buttonWord: word2,
-          dummyOpacity: 0.5
+          dummyOpacity: 0.5,
+          markers: this.state.markers
         });
 
      } else {
+      this.addPlant(count, "planty mcplant 3.0", "cucumber", "i love to eat cucumbers", "three times a day", "thrice a week", this.state.region.latitude, this.state.region.longitude)
 
-        // this.state.markers.push({
-        //   key: 3,
-        //   title: "hello3",
-        //   coordinates: {
-        //     latitude: this.region.coordinates.latitude,
-        //     longitude: this.region.coordinates.longitude,
-        //   },
-        //   description: "desc3"
-        // });
+      this.state.markers.push({
+        key: 3,
+        title: "hello3",
+        coordinates: {
+          latitude: this.state.region.latitude,
+          longitude: this.state.region.longitude ,
+        },
+        description: "desc3"
+      });
 
-        this.setState({ 
-            plantProfOpen: false,
-            buttonWord: word1,
-            markers: this.state.markers,
-            dummyOpacity: 0
-        });
+      // finish = (name, location) => {
+      //   firebase.database().ref('plants/' + name).set({
+      //       name: name,
+      //       location: location,
+      //   });
+      // }
+
+      this.setState({ 
+          plantProfOpen: false,
+          buttonWord: word1,
+          
+          dummyOpacity: 0,
+          
+      });
     }
     
   };
-
-
 
   render() {
     const {buttonWord} = this.state;
     const {region} = this.state;
     const {dummyOpacity} = this.state;
 
+  this.addPlant(count, "planty mcplant", "tomato", "i love to eat tomatoes", "every day", "once a week", "33.8", "-84.4")
+  this.addPlant(count, "planty mcplant 2.0", "carrot", "i love to eat carrots", "twice a day", "twice a week", "33.5", "-84.2")
+
     return (
       <View style={styles.container}>
         <MapView 
             style={styles.mapStyle}
             initialRegion={region}
+            onRegionChangeComplete={this.onRegionChange}
             >
-            {/* dummy plant for dropping pins */}
-            <View 
-              style={{
-                left: '50%',
-                marginLeft: -24,
-                marginTop: -48,
-                position: 'absolute',
-                top: '50%',
-                opacity: this.state.dummyOpacity
-              }} 
-              >
-              <Image source={require(plantImage)} style={styles.icon} />
-            </View>
             
-
-            {this.state.markers.map((marker, index) => (
+            {/* {this.state.markers.map((marker, index) => (
               <MapView.Marker
                 index={marker.key}
                 coordinate={marker.coordinates}
@@ -140,16 +148,39 @@ export default class App extends React.Component {
                 description={marker.description}>
                 <Image source={require(plantImage)} style={styles.icon} />
               </MapView.Marker>
+            ))} */}
+
+            {this.state.totalPlantsRef.map((marker) => (
+              <MapView.Marker
+                index={marker.plantid}
+                coordinate={marker.lat, marker.long}
+                title={marker.name}
+                description={marker.notes}
+                >
+                <Image source={require(plantImage)} style={styles.icon} />
+              </MapView.Marker>
             ))}
 
         </MapView>
+
+        {/* dummy plant for dropping pins */}
+        <View 
+              style={{
+                left: '49.5%',
+                marginLeft: -24,
+                marginTop: -48,
+                position: 'absolute',
+                top: '53.5%',
+                opacity: this.state.dummyOpacity
+              }} 
+              >
+              <Image source={require(plantImage)} style={styles.icon} />
+            </View>
             
         <View style={styles.mapHeader}>
-            {/* <SafeAreaView style={styles.mapHeader}> */}
             <Text style={styles.headerText}>
                 Find a Plant! 
             </Text>
-            {/* </SafeAreaView> */}
         </View>
 
         <TouchableOpacity 
@@ -193,8 +224,8 @@ const styles = StyleSheet.create({
     top: 15,
   },
   icon: {
-    width: 50,
-    height: 50,
+    width: plantSize,
+    height: plantSize,
     tintColor: 'darkgreen',
 
   },
