@@ -13,7 +13,7 @@ import HomeScreen from './screens/HomeScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import FillNameScreen from './screens/FillNameScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import AddAPlantScreen from './screens/AddAPlant';
+// import AddAPlantScreen from './screens/AddAPlant';
 import MapScreen from './screens/MapScreen';
 import NewPlantScreen from './screens/NewPlantScreen';
 import ViewPlantScreen from './screens/ViewPlantScreen';
@@ -30,7 +30,7 @@ function Home() {
   return(
     <Drawer.Navigator style={{backgroundColor: 'tomato'}}>
       <Drawer.Screen name="HomeScreen" component={HomeScreen}/>
-      <Drawer.Screen name="AddAPlant" component={AddAPlantScreen}/>
+      {/* <Drawer.Screen name="AddAPlant" component={AddAPlantScreen}/> */}
     </Drawer.Navigator>
   );
 }
@@ -39,12 +39,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen name="ViewPlant" component={ViewPlantScreen} options={ {headerShown: false }}/> 
-        {/* <Stack.Screen name="Welcome" component={WelcomeScreen} options={ {headerShown: false }}/>
+        <Stack.Screen name="Welcome" component={WelcomeScreen} options={ {headerShown: false }}/>
         <Stack.Screen name="Login" component={LoginScreen} options={ {headerShown: false }}/>
         <Stack.Screen name="Maps" component={MapScreen} options={ {headerShown: false }}/>
         <Stack.Screen name="NewPlant" component={NewPlantScreen} options={ {headerShown: false }}/>
-         */}
+        <Stack.Screen name="ViewPlant" component={ViewPlantScreen} options={ {headerShown: false }}/>
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

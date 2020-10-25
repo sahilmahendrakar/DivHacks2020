@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Marker } from 'react-native-maps';
 import MapView from 'react-native-maps';
@@ -36,27 +37,56 @@ var sampleMarkers = [
 ]; 
 
 export default class MapScreen extends React.Component {
+
+  // setPlantsRef = () => {
+  //   var totalPlantsRef = firebase.database().ref('plants/');
+  //   totalPlantsRef.on('value', function(snapshot) {
+  //       console.log(snapshot.val());
+  //       markers = snapshot.val();
+  //   });
+  // }
+  
+  // addPlant = (plantid, name, species, notes, water, fertilize, lat, long) => {
+  //   firebase.database().ref('plants/' + plantid).set({
+  //       plantid:plantid,
+  //       name:name,
+  //       species:species,
+  //       notes:notes,
+  //       water:water,
+  //       fertilize:fertilize,
+  //       lat:lat, 
+  //       long:long
+  //   });
+  //   count++;
+  // }
+
   constructor(props) {
     super(props);
+    // addPlant(count, "planty mcplant", "tomato", "i love to eat tomatoes", "every day", "once a week", "33.8", "-84.4");
+    // addPlant(count, "planty mcplant 2.0", "carrot", "i love to eat carrots", "twice a day", "twice a week", "33.5", "-84.2");
     this.state = { 
       plantProfOpen: false,
       buttonWord: word1,
       markers: sampleMarkers,
       region: {
-        latitude: 40.804496782,
-        longitude: -73.957162838,
-        latitudeDelta: .004,
-        longitudeDelta: .004},
-      dummyOpacity: 0
+          latitude: 40.804496782,
+          longitude: -73.957162838,
+          latitudeDelta: .004,
+          longitudeDelta: .004},
+      dummyOpacity: 0,
+      process: false,
     };
     this.itemsRef = firebase.database().ref('plants/');
+    
   }
 
   listenForItems(itemsRef) {
     itemsRef.on('value', (snap) => {
-
       // get children as an array
       var items = [];
+      this.setState({
+        process:true
+      })
       snap.forEach((child) => {
         items.push({
           title: child.val().title,
@@ -75,7 +105,9 @@ export default class MapScreen extends React.Component {
       this.setState({
         markers: this.markers
       });
-
+      this.setState({
+        process:false
+      })
     });
   }
 
@@ -85,24 +117,34 @@ export default class MapScreen extends React.Component {
     })
   }
 
-  onPress = () => {
+    onPress = () => {
       if(! this.state.plantProfOpen) {
         this.setState({ 
           plantProfOpen: true,
           buttonWord: word2,
           dummyOpacity: 0.5,
+          // markers: this.state.markers
         });
 
-     } else {
+    } else {
       this.props.navigation.navigate("NewPlant", {screen: 'Settings', params: {lat:this.state.region.latitude, long:this.state.region.longitude}});
+
       this.setState({ 
           plantProfOpen: false,
           buttonWord: word1,
           dummyOpacity: 0,
+          // markers: this.state.markers
+
       });
     }
-    
+
   };
+  onCalloutPress = (marker) =>{
+    // console.log(marker,this.state.process);
+    if (!this.state.process){
+      this.props.navigation.navigate("ViewPlant", {name:marker.name,species:marker.species, description:marker.description,water:marker.water,fertilize:marker.fertlize});
+    }
+  }
 
   componentDidMount() {
     let isMounted = true; 
@@ -136,7 +178,15 @@ export default class MapScreen extends React.Component {
                 title={marker.title}
                 description={marker.description}
                 >
-                <Image source={require(plantImage)} style={styles.icon} />
+                <Image source={require("../assets/PlantIcon.png")} style={styles.icon} />
+                <MapView.Callout
+                    style={styles.callout}
+                    onPress={()=>this.onCalloutPress(marker)}
+                  >
+                    <View>
+                      <Text>{marker.name}{"\n"}{marker.description}</Text>
+                    </View>
+                  </MapView.Callout>
               </MapView.Marker>
             ))}
 
@@ -158,14 +208,14 @@ export default class MapScreen extends React.Component {
             
         <View style={styles.mapHeader}>
             <Text style={styles.headerText}>
-               {headerWords}
+                Find a Plant! 
             </Text>
         </View>
 
         <TouchableOpacity 
             style = {styles.button} 
             onPress={this.onPress} >
-            <Text style={styles.buttonText}>{buttonWord}</Text>
+                <Text style={styles.buttonText}>{buttonWord}</Text>
         </TouchableOpacity>
       </View>
     );

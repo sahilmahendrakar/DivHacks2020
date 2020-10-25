@@ -25,7 +25,7 @@ export default class ViewPlant extends React.Component {
         </View>
         <Text style={styles.specName}>{this.props.route.params.species}</Text> */}
         
-        <Text style={styles.title}>{NAME}</Text>
+        <Text style={styles.title}>{this.props.route.params.name}</Text>
 
         <View style={styles.two} >
             <View style={styles.firstHalf}>
@@ -35,7 +35,7 @@ export default class ViewPlant extends React.Component {
             </View>
 
             <View style={styles.secondHalf}>
-                <Text style={styles.description}> {THISSPECIES}</Text>
+                <Text style={styles.description}> {this.props.route.params.species}</Text>
             </View>
         </View>
 
@@ -47,7 +47,7 @@ export default class ViewPlant extends React.Component {
             </View>
 
             <View style={styles.secondHalfLong}>
-                <Text style={styles.description}> {THISNOTES}</Text>
+                <Text style={styles.description}> {this.props.route.params.notes}</Text>
             </View>
         </View>
 
@@ -60,7 +60,7 @@ export default class ViewPlant extends React.Component {
             </View>
 
             <View style={styles.secondHalf}>
-                <Text style={styles.description}> {THISWATERING}</Text> 
+                <Text style={styles.description}> {this.props.route.params.water}</Text> 
             </View>
         </View>
 
@@ -73,7 +73,7 @@ export default class ViewPlant extends React.Component {
             </View>
 
             <View style={styles.secondHalf}>
-                <Text style={styles.description}> {THISFERTILIZING}</Text> 
+                <Text style={styles.description}> {this.props.route.params.fertilize}</Text> 
             </View>
         </View>
 
@@ -108,7 +108,7 @@ export default class ViewPlant extends React.Component {
         </View> */}
 
 
-        <TouchableOpacity activeOpacity={0.8} style={styles.addButton} onPress = {() => console.log("yeehaw") }>
+        <TouchableOpacity activeOpacity={0.8} style={styles.addButton} onPress = {() => this.props.navigation.navigate("Maps") }>
             <Text style={styles.normalText}>done</Text>
         </TouchableOpacity>
 
@@ -211,6 +211,6 @@ const styles = StyleSheet.create({
     flex: 0.4,
   },
   secondHalfLong:{
-    flex: 10, 
+    flex: 20, 
   }
 });
