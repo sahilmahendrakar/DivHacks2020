@@ -3,19 +3,19 @@ import { Marker } from 'react-native-maps';
 import MapView from 'react-native-maps';
 import { StyleSheet, Text, View, SafeAreaView, Dimensions, Image, TouchableOpacity } from 'react-native';
 import { add, ceil } from 'react-native-reanimated';
-import firebase from 'firebase'
+// import firebase from 'firebase'
 
 const word1 = "+";
 const word2 = "check";
 const plantImage = "../assets/PlantIcon.png";
 const plantSize = 50;
-var count = 0;
+const count = 0;
 
 var sampleMarkers = [
   {
     key: 1,
     title: "hello1",
-    coordinate: {
+    coordinates: {
       latitude: 33.8,
       longitude: -84.4,
     },
@@ -24,7 +24,7 @@ var sampleMarkers = [
   {
     key: 2,
     title: "hello2",
-    coordinate: {
+    coordinates: {
       latitude: 33.5,
       longitude: -84.2,
     },
@@ -33,33 +33,16 @@ var sampleMarkers = [
 ]; 
 
 export default class MapScreen extends React.Component {
-
-  // setPlantsRef = () => {
-  //   var totalPlantsRef = firebase.database().ref('plants/');
-  //   totalPlantsRef.on('value', function(snapshot) {
-  //       console.log(snapshot.val());
-  //       markers = snapshot.val();
-  //   });
-  // }
-  
-  // addPlant = (plantid, name, species, notes, water, fertilize, lat, long) => {
-  //   firebase.database().ref('plants/' + plantid).set({
-  //       plantid:plantid,
-  //       name:name,
-  //       species:species,
-  //       notes:notes,
-  //       water:water,
-  //       fertilize:fertilize,
-  //       lat:lat, 
-  //       long:long
-  //   });
-  //   count++;
-  // }
+    
+//   setPlantsRef = () => {
+//     var totalPlantsRef = firebase.database().ref('plants/');
+//     totalPlantsRef.on('value', function(snapshot) {
+//         console.log(snapshot.val())
+//     });
+//   } 
 
   constructor(props) {
     super(props);
-    // addPlant(count, "planty mcplant", "tomato", "i love to eat tomatoes", "every day", "once a week", "33.8", "-84.4");
-    // addPlant(count, "planty mcplant 2.0", "carrot", "i love to eat carrots", "twice a day", "twice a week", "33.5", "-84.2");
     this.state = { 
       plantProfOpen: false,
       buttonWord: word1,
@@ -71,49 +54,28 @@ export default class MapScreen extends React.Component {
         longitudeDelta: .4},
       dummyOpacity: 0
     };
-    this.itemsRef = firebase.database().ref('plants/');
-
-    this.itemsRef.push({
-      title: 'hello 1',
-      name: 'planty mcplant 1.0',
-      species: 'sunflower',
-      description: 'hello i like to eat sunflowers',
-      water: 'half a day',
-      fertilize: 'half a week ',
-      coordinate: {
-        latitude: -34,
-        longitude: -84
-      }
-    })
-    
   }
 
-  listenForItems(itemsRef) {
-    itemsRef.on('value', (snap) => {
+//   setPlantsRef = () => {
+//     var totalPlantsRef = firebase.database().ref('plants/');
+//     totalPlantsRef.on('value', function(snapshot) {
+//         console.log(snapshot.val())
+//     });
+//   }
 
-      // get children as an array
-      var items = [];
-      snap.forEach((child) => {
-        items.push({
-          title: child.val().title,
-          key: child.key,
-          name: child.val().name,
-          species: child.val().species,
-          description: child.val().description,
-          water:child.val().water,
-          fertilize:child.val().fertilize,
-          coordinate:child.val().coordinate
-        });
-      });
-
-      this.markers = items;
-
-      this.setState({
-        markers: this.markers
-      });
-
-    });
-  }
+//   addPlant = (plantid, name, species, notes, water, fertilize, lat, long) => {
+//     firebase.database().ref('plants/' + plantid).set({
+//         plantid:plantid,
+//         name:name,
+//         species:species,
+//         notes:notes,
+//         water:water,
+//         fertilize:fertilize,
+//         lat:lat, 
+//         long:long
+//     });
+//     count++;
+//   }
 
   onRegionChange = region => {
     this.setState({
@@ -123,39 +85,26 @@ export default class MapScreen extends React.Component {
 
   onPress = () => {
       if(! this.state.plantProfOpen) {
+
         this.setState({ 
           plantProfOpen: true,
           buttonWord: word2,
           dummyOpacity: 0.5,
-          // markers: this.state.markers
+          markers: this.state.markers
         });
 
      } else {
-      // this.addPlant(count, "planty mcplant 3.0", "cucumber", "i love to eat cucumbers", "three times a day", "thrice a week", this.state.region.latitude, this.state.region.longitude)
+    //   this.addPlant(count, "planty mcplant 3.0", "cucumber", "i love to eat cucumbers", "three times a day", "thrice a week", this.state.region.latitude, this.state.region.longitude)
 
-      this.itemsRef.push({
-        title: 'hello',
-        name: 'planty mcplant 3.0',
-        species: 'cucumber',
-        description: 'hello i like to eat cucumbers',
-        water: 'thrice a day',
-        fertilize: 'thrice a week ',
-        coordinate: {
+      this.state.markers.push({
+        key: 3,
+        title: "hello3",
+        coordinates: {
           latitude: this.state.region.latitude,
-          longitude: this.state.region.longitude
-        }
-      })
-      // console.log(this.state.markers[0])
-
-      // this.state.markers.push({
-      //   key: 3,
-      //   title: "hello3",
-      //   coordinates: {
-      //     latitude: this.state.region.latitude,
-      //     longitude: this.state.region.longitude ,
-      //   },
-      //   description: "desc3"
-      // });
+          longitude: this.state.region.longitude ,
+        },
+        description: "desc3"
+      });
 
       // finish = (name, location) => {
       //   firebase.database().ref('plants/' + name).set({
@@ -167,30 +116,21 @@ export default class MapScreen extends React.Component {
       this.setState({ 
           plantProfOpen: false,
           buttonWord: word1,
+          
           dummyOpacity: 0,
-          // markers: this.state.markers
           
       });
     }
     
   };
 
-  componentDidMount() {
-    let isMounted = true; 
-    if (isMounted) {
-      this.setState({
-        markers: this.state.markers
-      })
-    }
-    this.listenForItems(this.itemsRef);
-    return () => { isMounted = false };
-  }
-
   render() {
-    var {buttonWord} = this.state;
-    var {region} = this.state;
-    var {dummyOpacity} = this.state;
-    var {markers} = this.state;
+    const {buttonWord} = this.state;
+    const {region} = this.state;
+    const {dummyOpacity} = this.state;
+
+//   this.addPlant(count, "planty mcplant", "tomato", "i love to eat tomatoes", "every day", "once a week", "33.8", "-84.4")
+//   this.addPlant(count, "planty mcplant 2.0", "carrot", "i love to eat carrots", "twice a day", "twice a week", "33.5", "-84.2")
 
     return (
       <View style={styles.container}>
@@ -199,17 +139,27 @@ export default class MapScreen extends React.Component {
             initialRegion={region}
             onRegionChangeComplete={this.onRegionChange}
             >
-
-            {this.state.markers.map((marker, key) => (
+            
+            {this.state.markers.map((marker, index) => (
               <MapView.Marker
-                key={marker.key}
-                coordinate={marker.coordinate}
+                index={marker.key}
+                coordinate={marker.coordinates}
                 title={marker.title}
-                description={marker.description}
-                >
+                description={marker.description}>
                 <Image source={require(plantImage)} style={styles.icon} />
               </MapView.Marker>
             ))}
+
+            {/* {this.state.totalPlantsRef.map((marker) => (
+              <MapView.Marker
+                index={marker.plantid}
+                coordinate={marker.lat, marker.long}
+                title={marker.name}
+                description={marker.notes}
+                >
+                <Image source={require(plantImage)} style={styles.icon} />
+              </MapView.Marker>
+            ))} */}
 
         </MapView>
 
@@ -291,7 +241,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
-    alignSelf:  "baseline"
+    alignSelf:  "baseline"
   },
   // markerFixed: {
   //   left: '50%',
