@@ -13,7 +13,6 @@ const word2 = "confirm placement";
 const plantImage = "../assets/PlantIcon.png";
 const headerWords = "plant finder"
 const plantSize = 50;
-// var count = 0;
 
 var sampleMarkers = [
   {
@@ -38,32 +37,8 @@ var sampleMarkers = [
 
 export default class MapScreen extends React.Component {
 
-  // setPlantsRef = () => {
-  //   var totalPlantsRef = firebase.database().ref('plants/');
-  //   totalPlantsRef.on('value', function(snapshot) {
-  //       console.log(snapshot.val());
-  //       markers = snapshot.val();
-  //   });
-  // }
-  
-  // addPlant = (plantid, name, species, notes, water, fertilize, lat, long) => {
-  //   firebase.database().ref('plants/' + plantid).set({
-  //       plantid:plantid,
-  //       name:name,
-  //       species:species,
-  //       notes:notes,
-  //       water:water,
-  //       fertilize:fertilize,
-  //       lat:lat, 
-  //       long:long
-  //   });
-  //   count++;
-  // }
-
   constructor(props) {
     super(props);
-    // addPlant(count, "planty mcplant", "tomato", "i love to eat tomatoes", "every day", "once a week", "33.8", "-84.4");
-    // addPlant(count, "planty mcplant 2.0", "carrot", "i love to eat carrots", "twice a day", "twice a week", "33.5", "-84.2");
     this.state = { 
       plantProfOpen: false,
       buttonWord: word1,
@@ -123,7 +98,6 @@ export default class MapScreen extends React.Component {
           plantProfOpen: true,
           buttonWord: word2,
           dummyOpacity: 0.5,
-          // markers: this.state.markers
         });
 
     } else {
@@ -133,14 +107,12 @@ export default class MapScreen extends React.Component {
           plantProfOpen: false,
           buttonWord: word1,
           dummyOpacity: 0,
-          // markers: this.state.markers
 
       });
     }
 
   };
   onCalloutPress = (marker) =>{
-    // console.log(marker,this.state.process);
     if (!this.state.process){
       this.props.navigation.navigate("ViewPlant", {name:marker.name,species:marker.species, description:marker.description,water:marker.water,fertilize:marker.fertlize});
     }

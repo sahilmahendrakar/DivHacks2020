@@ -16,14 +16,9 @@ export default class ViewPlant extends React.Component {
 
   }
 
-
   render(){
     return (
       <View style={styles.container}>
-        {/* <View style ={styles.header}>
-            <Text style={styles.title}>{this.props.route.params.name}</Text>
-        </View>
-        <Text style={styles.specName}>{this.props.route.params.species}</Text> */}
         
         <Text style={styles.title}>{this.props.route.params.name}</Text>
 
@@ -77,36 +72,6 @@ export default class ViewPlant extends React.Component {
             </View>
         </View>
 
-        {/* <View style={styles.inputView} >
-            <TextInput  
-                style={styles.inputText}
-                placeholder="species" 
-                placeholderTextColor="#003f5c"
-                onChangeText={text => this.setState({species:text})}/>
-        </View>
-        <View style={styles.longInputView} >
-            <TextInput  
-                multiline
-                style={styles.inputText}
-                placeholder="notes" 
-                placeholderTextColor="#003f5c"
-                onChangeText={text => this.setState({notes:text})}/>
-        </View>
-        <View style={styles.inputView} >
-            <TextInput  
-                style={styles.inputText}
-                placeholder="watering interval in days" 
-                placeholderTextColor="#003f5c"
-                onChangeText={text => this.setState({water:text})}/>
-        </View>
-        <View style={styles.inputView} >
-            <TextInput  
-                style={styles.inputText}
-                placeholder="fertilizing interval in days" 
-                placeholderTextColor="#003f5c"
-                onChangeText={text => this.setState({fertilizer:text})}/>
-        </View> */}
-
 
         <TouchableOpacity activeOpacity={0.8} style={styles.addButton} onPress = {() => this.props.navigation.navigate("Maps") }>
             <Text style={styles.normalText}>done</Text>
@@ -124,32 +89,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-//   header: {
-//     backgroundColor: styling.primaryColor,
-//     height: 100,
-//     width: Dimensions.get('window').width,
-//     justifyContent: "center",
-//     alignItems: "center",
-//     position: "absolute",
-//     alignSelf:  "baseline",
-
-//   },
   title: {
-    // fontWeight:"bold",
     fontSize:35,
     color:"#fff",
     marginBottom:10,
-    // flexGrow: 1,
     fontFamily: styling.mainFont,
     padding: 10,
     alignSelf: 'center',
     justifyContent: 'center',
   },
-//   specName :{
-//       color: "#fff",
-//       fontSize: 20,
-//       fontStyle: "italic",
-//   },
   addButton:{
     backgroundColor:styling.secondaryColor,
     alignItems:"center",
@@ -191,7 +139,6 @@ const styles = StyleSheet.create({
     backgroundColor:styling.primaryColor,
     justifyContent:"center",
     alignContent: "center",
-    // alignItems: "center",
     fontFamily: styling.mainFont,
     padding: 15,
   },
