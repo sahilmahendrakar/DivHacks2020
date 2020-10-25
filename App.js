@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image, TabBarIOS } from 'react-native';
 import LoginScreen from './screens/LoginScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
+import ButtonTest from './screens/ButtonTest';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
