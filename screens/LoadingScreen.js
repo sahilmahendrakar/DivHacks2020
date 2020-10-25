@@ -7,11 +7,11 @@ import styling from '../config/styling';
 class LoadingScreen extends Component {
     state = {  }
 
-    componentDidMount() {
+    /**componentDidMount() {
         this.checkIfLoggedIn();
     }
 
-    checkIfLoggedIn = () => {
+    /**checkIfLoggedIn = () => {
         firebase.auth().onAuthStateChanged((user) => {
 
             if(user){
@@ -30,7 +30,7 @@ class LoadingScreen extends Component {
             }
         })
     }
-
+    **/
     render() {
         return (
             <View style={styles.container}>

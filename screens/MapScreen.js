@@ -94,19 +94,7 @@ export default class MapScreen extends React.Component {
         });
 
      } else {
-      this.itemsRef.push({
-        title: 'hello',
-        name: 'planty mcplant 3.0',
-        species: 'cucumber',
-        description: 'hello i like to eat cucumbers',
-        water: 'thrice a day',
-        fertilize: 'thrice a week ',
-        coordinate: {
-          latitude: this.state.region.latitude,
-          longitude: this.state.region.longitude
-        }
-      })
-
+      this.props.navigation.navigate("NewPlant", {screen: 'Settings', params: {lat:this.state.region.latitude, long:this.state.region.longitude}});
       this.setState({ 
           plantProfOpen: false,
           buttonWord: word1,
