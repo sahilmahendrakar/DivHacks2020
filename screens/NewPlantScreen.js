@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import {Picker} from '@react-native-community/picker';
+// import {Picker} from '@react-native-community/picker';
 import firebase from 'firebase'
 
 export default class NewPlantScreen extends React.Component {
