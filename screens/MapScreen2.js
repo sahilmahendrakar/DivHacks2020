@@ -4,6 +4,7 @@ import MapView from 'react-native-maps';
 import { StyleSheet, Text, View, SafeAreaView, Dimensions, Image, TouchableOpacity } from 'react-native';
 import { add, ceil } from 'react-native-reanimated';
 // import firebase from 'firebase'
+import styling from '../config/styling';
 
 const word1 = "+";
 const word2 = "check";

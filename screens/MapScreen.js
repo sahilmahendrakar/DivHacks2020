@@ -5,11 +5,14 @@ import { StyleSheet, Text, View, SafeAreaView, Dimensions, Image, TouchableOpaci
 import { add, ceil } from 'react-native-reanimated';
 import firebase from 'firebase'
 
-const word1 = "+";
-const word2 = "check";
+import styling from '../config/styling';
+
+const word1 = "add a plant";
+const word2 = "confirm placement";
 const plantImage = "../assets/PlantIcon.png";
+const headerWords = "plant finder"
 const plantSize = 50;
-var count = 0;
+// var count = 0;
 
 var sampleMarkers = [
   {
@@ -33,59 +36,20 @@ var sampleMarkers = [
 ]; 
 
 export default class MapScreen extends React.Component {
-
-  // setPlantsRef = () => {
-  //   var totalPlantsRef = firebase.database().ref('plants/');
-  //   totalPlantsRef.on('value', function(snapshot) {
-  //       console.log(snapshot.val());
-  //       markers = snapshot.val();
-  //   });
-  // }
-  
-  // addPlant = (plantid, name, species, notes, water, fertilize, lat, long) => {
-  //   firebase.database().ref('plants/' + plantid).set({
-  //       plantid:plantid,
-  //       name:name,
-  //       species:species,
-  //       notes:notes,
-  //       water:water,
-  //       fertilize:fertilize,
-  //       lat:lat, 
-  //       long:long
-  //   });
-  //   count++;
-  // }
-
   constructor(props) {
     super(props);
-    // addPlant(count, "planty mcplant", "tomato", "i love to eat tomatoes", "every day", "once a week", "33.8", "-84.4");
-    // addPlant(count, "planty mcplant 2.0", "carrot", "i love to eat carrots", "twice a day", "twice a week", "33.5", "-84.2");
     this.state = { 
       plantProfOpen: false,
       buttonWord: word1,
       markers: sampleMarkers,
       region: {
-        latitude: 33.7872131,
-        longitude: -84.381931,
-        latitudeDelta: .4,
-        longitudeDelta: .4},
+        latitude: 40.804496782,
+        longitude: -73.957162838,
+        latitudeDelta: .004,
+        longitudeDelta: .004},
       dummyOpacity: 0
     };
     this.itemsRef = firebase.database().ref('plants/');
-
-    this.itemsRef.push({
-      title: 'hello 1',
-      name: 'planty mcplant 1.0',
-      species: 'sunflower',
-      description: 'hello i like to eat sunflowers',
-      water: 'half a day',
-      fertilize: 'half a week ',
-      coordinate: {
-        latitude: -34,
-        longitude: -84
-      }
-    })
-    
   }
 
   listenForItems(itemsRef) {
@@ -127,12 +91,9 @@ export default class MapScreen extends React.Component {
           plantProfOpen: true,
           buttonWord: word2,
           dummyOpacity: 0.5,
-          // markers: this.state.markers
         });
 
      } else {
-      // this.addPlant(count, "planty mcplant 3.0", "cucumber", "i love to eat cucumbers", "three times a day", "thrice a week", this.state.region.latitude, this.state.region.longitude)
-
       this.itemsRef.push({
         title: 'hello',
         name: 'planty mcplant 3.0',
@@ -145,31 +106,11 @@ export default class MapScreen extends React.Component {
           longitude: this.state.region.longitude
         }
       })
-      // console.log(this.state.markers[0])
-
-      // this.state.markers.push({
-      //   key: 3,
-      //   title: "hello3",
-      //   coordinates: {
-      //     latitude: this.state.region.latitude,
-      //     longitude: this.state.region.longitude ,
-      //   },
-      //   description: "desc3"
-      // });
-
-      // finish = (name, location) => {
-      //   firebase.database().ref('plants/' + name).set({
-      //       name: name,
-      //       location: location,
-      //   });
-      // }
 
       this.setState({ 
           plantProfOpen: false,
           buttonWord: word1,
           dummyOpacity: 0,
-          // markers: this.state.markers
-          
       });
     }
     
@@ -229,14 +170,14 @@ export default class MapScreen extends React.Component {
             
         <View style={styles.mapHeader}>
             <Text style={styles.headerText}>
-                Find a Plant! 
+               {headerWords}
             </Text>
         </View>
 
         <TouchableOpacity 
             style = {styles.button} 
             onPress={this.onPress} >
-                <Text style={styles.buttonText}>{buttonWord}</Text>
+            <Text style={styles.buttonText}>{buttonWord}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -247,36 +188,38 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    fontFamily: styling.mainFont,
   },
   button: {
-    // flexDirection:'row',
     position:'absolute',
     bottom: 50,
-    right: 40,
-    alignSelf: "center",
-    backgroundColor: "darkgreen",
+    right: 30,
+    alignSelf: "flex-start",
+    backgroundColor: styling.primaryColor,
     borderWidth: 0.5,
     borderRadius: 70,
-    width: 70,
-    height: 70,
+    padding: 15,
+    height: 60,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    fontFamily: styling.mainFont,
   },
-  buttonText:{
-    fontSize: 50,
-    color: "#fff",
+  buttonText: {
+    fontSize: 20,
+    color: '#fff',
+    alignSelf: 'center',
+    fontFamily: styling.mainFont,
   },
   headerText: {
     color: "#fff",
     fontSize: 36,
     top: 15,
+    fontFamily: styling.mainFont,
   },
   icon: {
     width: plantSize,
     height: plantSize,
-    tintColor: 'darkgreen',
+    tintColor: styling.primaryColor,
 
   },
   mapStyle: {
@@ -285,20 +228,13 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height,
   },
   mapHeader: {
-    backgroundColor: '#73db8d',
+    backgroundColor: styling.primaryColor,
     height: 100,
     width: Dimensions.get('window').width,
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
-    alignSelf:  "baseline"
-  },
-  // markerFixed: {
-  //   left: '50%',
-  //   marginLeft: -24,
-  //   marginTop: -48,
-  //   position: 'absolute',
-  //   top: '50%',
-  //   opacity: dummyOpacity
-  // }
+    alignSelf:  "baseline",
+    fontFamily: styling.mainFont,
+  }
 });

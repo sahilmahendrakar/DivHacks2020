@@ -38,6 +38,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+
       <Stack.Screen name="Map" component={MapScreen} options={ {headerShown: false }}/>
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={ {headerShown: false }}/>
         <Stack.Screen name="Loading" component={LoadingScreen} options={ {headerShown: false }}/>
